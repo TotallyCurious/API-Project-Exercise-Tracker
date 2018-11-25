@@ -19,11 +19,6 @@ app.get('/', (req, res) => {
 });
 
 
-// Not found middleware
-app.use((req, res, next) => {
-  return next({status: 404, message: 'not found'})
-})
-
 // Error Handling middleware
 app.use((err, req, res, next) => {
   let errCode, errMessage
@@ -43,6 +38,8 @@ app.use((err, req, res, next) => {
     .send(errMessage)
 })
 
+
+
 //easy print function
 var p = (val)=>{console.log(val)};
 
@@ -61,7 +58,10 @@ app.post('/api/exercise/new-user',(req,res)=>{
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
 
 
-
+// Not found middleware
+app.use((req, res, next) => {
+  return next({status: 404, message: 'not found'})
+})
 
 
 const listener = app.listen(process.env.PORT || 3000, () => {
