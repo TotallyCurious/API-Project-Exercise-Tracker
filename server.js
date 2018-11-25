@@ -38,7 +38,14 @@ app.use((err, req, res, next) => {
     .send(errMessage)
 })
 
-
+var Schema = mongoose.Schema;
+var userSchema = new Schema({
+  username:String,
+  userId:String,
+  description:String,
+  duration:Number,
+  date:String  
+});
 
 //easy print function
 var p = (val)=>{console.log(val)};
