@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 // Error Handling middleware
 app.use((err, req, res, next) => {
   let errCode, errMessage
-
+  p('error handler here');
   if (err.errors) {
     // mongoose validation error
     errCode = 400 // bad request
@@ -68,7 +68,7 @@ app.post('/api/exercise/add',(req,res)=>{
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
 app.get('api/exercise/log?:userId',(req,res)=>{
-  p('id: ',req.params.userId);
+  p('id: ',req.query);
   res.json({userId:''},(e,d)=>{
     e?p(e):p(d);
   });
