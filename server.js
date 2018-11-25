@@ -45,7 +45,7 @@ var p = (val)=>{console.log(val)};
 
 // 1. POST /api/exercise/new-user
 app.post('/api/exercise/new-user',(req,res)=>{
-  p(req);
+  // p(req);
   res.json({username:req.body.username,userId:''},(e,d)=>{
     e?p(e):p(d);
   })
@@ -53,7 +53,7 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 
 // 2. POST /api/exercise/add
-
+app.post('/api/exercise/new');
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
 
