@@ -49,7 +49,9 @@ var p = (val)=>{console.log(val)};
 // 1. POST /api/exercise/new-user
 app.post('/api/exercise/new-user',(req,res)=>{
   
-  // (e,d)=>{e?p(e):p(d)}
+  res.json({username:req.body.username,userId:''},(e,d)=>{
+    e?p(e):p(d)
+  })
 });
 
 
