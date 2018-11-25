@@ -68,8 +68,8 @@ app.post('/api/exercise/add',(req,res)=>{
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
 app.get('/api/exercise/log',(req,res)=>{
-  p('id: ',req.query);
-  res.json({userId:''},(e,d)=>{
+  p('id: ');p(req.query);
+  res.json({userId:req.query},(e,d)=>{
     e?p(e):p(d);
   });
 });
