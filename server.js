@@ -53,6 +53,11 @@ var p = (val)=>{console.log(val)};
 // 1. POST /api/exercise/new-user
 app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
+  //If username exists
+  //return existing username and userId
+  //else create new dataset 
+  //and return username and userId
+  
   res.json({username:req.body.username,userId:''},(e,d)=>{
     e?p(e):p(d);
   })
@@ -61,6 +66,11 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 // 2. POST /api/exercise/add
 app.post('/api/exercise/add',(req,res)=>{
+  //if required fields missing, return error report
+  //if all required fields present, 
+  //valid userId? add data
+  //invalid userId? return error report
+  
   res.json({userId:req.body},(e,d)=>{
     e?p(e):p(d);
   });
@@ -68,6 +78,14 @@ app.post('/api/exercise/add',(req,res)=>{
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
 app.get('/api/exercise/log',(req,res)=>{
+  p('id: ');p(req.query);
+  res.json({userId:req.query},(e,d)=>{
+    e?p(e):p(d);
+  });
+});
+
+// 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
+app.get('/api/exercise/users',(req,res)=>{
   p('id: ');p(req.query);
   res.json({userId:req.query},(e,d)=>{
     e?p(e):p(d);
