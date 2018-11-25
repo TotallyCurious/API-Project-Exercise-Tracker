@@ -53,10 +53,18 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 
 // 2. POST /api/exercise/add
-app.post('/api/exercise/new');
+app.post('/api/exercise/add',(req,res)=>{
+  res.json({userId:req.body},(e,d)=>{
+    e?p(e):p(d);
+  });
+});
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
-
+app.get('api/exercise/log',(req,res)=>{
+  res.json({userId:''},(e,d)=>{
+    e?p(e):p(d);
+  });
+});
 
 // Not found middleware
 app.use((req, res, next) => {
