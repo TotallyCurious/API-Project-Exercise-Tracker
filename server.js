@@ -43,6 +43,25 @@ app.use((err, req, res, next) => {
     .send(errMessage)
 })
 
+//easy print function
+var p = (val)=>{console.log(val)};
+
+// 1. POST /api/exercise/new-user
+app.post('/api/exercise/new-user',(req,res)=>{
+  
+  // (e,d)=>{e?p(e):p(d)}
+});
+
+
+// 2. POST /api/exercise/add
+
+
+// 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
+
+
+
+
+
 const listener = app.listen(process.env.PORT || 3000, () => {
   console.log('Your app is listening on port ' + listener.address().port)
 })
