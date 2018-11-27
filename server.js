@@ -89,34 +89,50 @@ app.post('/api/exercise/add',(req,res)=>{
   //if required fields missing, 
   //return error report
   if(req.body.userId.length==0){
-    res.send('unknown ID',(e,d)=>{
+    return res.send('unknown ID',(e,d)=>{
       e?p(e):p(d);
     });
   }
   if(req.body.description.length==0){
-    res.send("'Description' is required",(e,d)=>{
+    return res.send("'Description' is required",(e,d)=>{
+      e?p(e):p(d);
+    });
+  }
+  if(req.body.description.length>=16){
+    return res.send("'Description' is too long",(e,d)=>{
       e?p(e):p(d);
     });
   }
   if(req.body.duration.length==0){
-    res.send("'Duration' is required",(e,d)=>{
+    return res.send("'Duration' is required",(e,d)=>{
       e?p(e):p(d);
     });
   }
+  if(typeof(req.body.duration)!==Number){
+    return res.send("'Duration' must be a number",(e,d)=>{
+      e?p(e):p(d);
+    });
+  }
+  //if all required fields present, 
+  //find user by ID
   User.find({userId:req.body.userId},(e,d)=>{
-    //invalid userId? 
+    //user not found? 
     if(d.length==0){
-      res.send('unknown ID');
+      //return error report
+      return res.send('unknown ID');
     }
-    else(){
-      
+    //user found:
+    else{
+      //if date not present  
+      if(req.body.date.length==0){
+        
+        
+        // return res.send("'Description' is required",(e,d)=>{
+        //   e?p(e):p(d);
+        // });
+  }
     }
   });
-  
-  //return error report
-  //if all required fields present, 
-  //valid data? 
-  //add data
   
   res.json({userId:req.body},(e,d)=>{
     e?p(e):p(d);
