@@ -47,6 +47,7 @@ var userSchema = new Schema({
   date:String  
 });
 
+var User = mongoose.model('User',userSchema);
 //easy print function
 var p = (val)=>{console.log(val)};
 
@@ -54,12 +55,17 @@ var p = (val)=>{console.log(val)};
 app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
   //If username exists
+  //return existing username and userId
+  userSchema.find({username:req.body.username},(e,d)=>{
+    if(e)p(e);
+    
+    p(d);
+  })
+  //else create new dataset 
   if(req.body.username){
     var newUser = userSchema({username:req.body.username,userId:shortid.generate()});
     newUser.save((e,d)=>{e?p(e):p(d);});
   }
-  //return existing username and userId
-  //else create new dataset 
   //and return username and userId
   
   res.json({username:req.body.username,userId:newUser.userId},(e,d)=>{
