@@ -103,11 +103,12 @@ app.post('/api/exercise/add',(req,res)=>{
       e?p(e):p(d);
     });
   }
+  //invalid userId? 
+  if()
+  //return error report
   //if all required fields present, 
   //valid data? 
   //add data
-  //invalid userId? 
-  //return error report
   
   res.json({userId:req.body},(e,d)=>{
     e?p(e):p(d);
