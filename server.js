@@ -87,6 +87,17 @@ app.post('/api/exercise/new-user',(req,res)=>{
 // 2. POST /api/exercise/add
 app.post('/api/exercise/add',(req,res)=>{
   //if required fields missing, 
+  if(req.body.userId.length==0){
+  res.json({userId:req.body},(e,d)=>{
+    e?p(e):p(d);
+  });
+  }
+  if(req.body.description.length==0){
+  
+  }
+  if(req.body.duration.length==0){
+  
+  }
   //return error report
   //if all required fields present, 
   //valid data? 
