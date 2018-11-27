@@ -59,23 +59,23 @@ app.post('/api/exercise/new-user',(req,res)=>{
     return res.json({error:'invalid username'});
   }
   //if valid username
+  //find if username exists
   User.find({username:req.body.username},(e,d)=>{
     if(e)p(e);
+    //if username doesn't exist in db
     if(d.length==0){
-      
+      //create a new user in db and return username and userId
+      var newUser = User({username:req.body.username,userId:shortid.generate()});
+      newUser.save((e,d)=>{e?p(e):p(d);});
     }
-  
-  if(req.body.username){
-  //If username exists
-  //return existing username and userId
-    var newUser = User({username:req.body.username,userId:shortid.generate()});
-    newUser.save((e,d)=>{e?p(e):p(d);});
-  }
-    
-  res.json({username:req.body.username,userId:newUser.userId},(e,d)=>{
-    e?p(e):p(d);
-  })
-  })
+    else{
+      //If username exists
+      //return existing username and userId from db
+      res.json({username:d[0].username,userId:d[0].userId},(e,d)=>{
+        e?p(e):p(d);
+      });
+    }
+  });
   //else create new dataset 
   //and return username and userId
   
