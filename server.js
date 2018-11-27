@@ -3,7 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const shortid = require('shortid');
 const cors = require('cors')
-
+const moment = require('moment')
 const mongoose = require('mongoose')
 mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true });
 
@@ -51,7 +51,10 @@ var User = mongoose.model('User',userSchema);
 //easy print function
 var p = (val)=>{console.log(val)};
 
+
 // 1. POST /api/exercise/new-user
+
+
 app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
   //if invalid username
@@ -85,6 +88,8 @@ app.post('/api/exercise/new-user',(req,res)=>{
 
 
 // 2. POST /api/exercise/add
+
+
 app.post('/api/exercise/add',(req,res)=>{
   //if required fields missing, 
   //return error report
@@ -108,7 +113,8 @@ app.post('/api/exercise/add',(req,res)=>{
       e?p(e):p(d);
     });
   }
-  if(typeof(req.body.duration)!==Number){
+  p(typeof(req.body.duration*1)==Number);
+  if(typeof(req.body.duration*1)!==Number){
     return res.send("'Duration' must be a number",(e,d)=>{
       e?p(e):p(d);
     });
@@ -123,6 +129,9 @@ app.post('/api/exercise/add',(req,res)=>{
     }
     //user found:
     else{
+      //init date
+      var date = new moment();
+      p(date);
       //if date not present  
       if(req.body.date.length==0){
         
