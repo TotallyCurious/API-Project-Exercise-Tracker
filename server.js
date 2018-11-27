@@ -94,17 +94,25 @@ app.post('/api/exercise/add',(req,res)=>{
     });
   }
   if(req.body.description.length==0){
-    res.send('Description is required',(e,d)=>{
+    res.send("'Description' is required",(e,d)=>{
       e?p(e):p(d);
     });
   }
   if(req.body.duration.length==0){
-    res.send("'Duration is required",(e,d)=>{
+    res.send("'Duration' is required",(e,d)=>{
       e?p(e):p(d);
     });
   }
-  //invalid userId? 
-  if()
+  User.find({userId:req.body.userId},(e,d)=>{
+    //invalid userId? 
+    if(d.length==0){
+      res.send('unknown ID');
+    }
+    else(){
+      
+    }
+  });
+  
   //return error report
   //if all required fields present, 
   //valid data? 
