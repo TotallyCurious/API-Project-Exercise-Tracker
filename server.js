@@ -56,14 +56,14 @@ app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
   //If username exists
   //return existing username and userId
-  userSchema.find({username:req.body.username},(e,d)=>{
+  User.find({username:req.body.username},(e,d)=>{
     if(e)p(e);
     
     p(d);
   })
   //else create new dataset 
   if(req.body.username){
-    var newUser = userSchema({username:req.body.username,userId:shortid.generate()});
+    var newUser = User({username:req.body.username,userId:shortid.generate()});
     newUser.save((e,d)=>{e?p(e):p(d);});
   }
   //and return username and userId
