@@ -54,10 +54,17 @@ var p = (val)=>{console.log(val)};
 // 1. POST /api/exercise/new-user
 app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
+  //if invalid username
+  if(req.body.username.length==0){
+    return res.json({error:'invalid username'});
+  }
+  //if valid username
   User.find({username:req.body.username},(e,d)=>{
     if(e)p(e);
-    p(d.length);
-  //if valid username
+    if(d.length==0){
+      
+    }
+  
   if(req.body.username){
   //If username exists
   //return existing username and userId
