@@ -66,28 +66,33 @@ app.post('/api/exercise/new-user',(req,res)=>{
     if(d.length==0){
       //create a new user in db and return username and userId
       var newUser = User({username:req.body.username,userId:shortid.generate()});
-      newUser.save((e,d)=>{e?p(e):p(d);});
+      newUser.save((e,d)=>{
+        if(e)p(e);
+        res.json({username:d.username,userId:d.userId},(e,d)=>{
+          e?p(e):p(d);
+        });
+      });
     }
+    //If username exists
     else{
-      //If username exists
       //return existing username and userId from db
       res.json({username:d[0].username,userId:d[0].userId},(e,d)=>{
         e?p(e):p(d);
       });
     }
   });
-  //else create new dataset 
-  //and return username and userId
-  
 });
 
 
 // 2. POST /api/exercise/add
 app.post('/api/exercise/add',(req,res)=>{
-  //if required fields missing, return error report
+  //if required fields missing, 
+  //return error report
   //if all required fields present, 
-  //valid userId? add data
-  //invalid userId? return error report
+  //valid data? 
+  //add data
+  //invalid userId? 
+  //return error report
   
   res.json({userId:req.body},(e,d)=>{
     e?p(e):p(d);
@@ -96,7 +101,8 @@ app.post('/api/exercise/add',(req,res)=>{
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
 app.get('/api/exercise/log',(req,res)=>{
-  //invalid userId? return error
+  //invalid userId? 
+  //return error
   //
   p('id: ');p(req.query);
   res.json({userId:req.query},(e,d)=>{
