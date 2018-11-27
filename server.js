@@ -56,7 +56,7 @@ app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
   User.find({username:req.body.username},(e,d)=>{
     if(e)p(e);
-    p(d[0]==true);
+    p(d.length);
   //if valid username
   if(req.body.username){
   //If username exists
