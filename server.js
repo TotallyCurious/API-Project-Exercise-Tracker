@@ -54,23 +54,24 @@ var p = (val)=>{console.log(val)};
 // 1. POST /api/exercise/new-user
 app.post('/api/exercise/new-user',(req,res)=>{
   // p(req);
-  //If username exists
-  //return existing username and userId
   User.find({username:req.body.username},(e,d)=>{
     if(e)p(e);
-    
-    p(d);
-  })
-  //else create new dataset 
+    p(d[0]==true);
+  //if valid username
   if(req.body.username){
+  //If username exists
+  //return existing username and userId
     var newUser = User({username:req.body.username,userId:shortid.generate()});
     newUser.save((e,d)=>{e?p(e):p(d);});
   }
-  //and return username and userId
-  
+    
   res.json({username:req.body.username,userId:newUser.userId},(e,d)=>{
     e?p(e):p(d);
   })
+  })
+  //else create new dataset 
+  //and return username and userId
+  
 });
 
 
