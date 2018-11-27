@@ -113,19 +113,15 @@ app.post('/api/exercise/add',(req,res)=>{
       e?p(e):p(d);
     });
   }
-  p(typeof(req.body.duration*1)==Number);
-  if(typeof(req.body.duration*1)!==Number){
-    return res.send("'Duration' must be a number",(e,d)=>{
-      e?p(e):p(d);
-    });
-  }
   //if all required fields present, 
   //find user by ID
   User.find({userId:req.body.userId},(e,d)=>{
     //user not found? 
     if(d.length==0){
       //return error report
-      return res.send('unknown ID');
+      return res.send('unknown ID',(e,d)=>{
+      e?p(e):p(d);
+    });
     }
     //user found:
     else{
