@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
-
+const shortid = require('shortid');
 const cors = require('cors')
 
 const mongoose = require('mongoose')
@@ -58,7 +58,7 @@ app.post('/api/exercise/new-user',(req,res)=>{
   //else create new dataset 
   //and return username and userId
   
-  res.json({username:req.body.username,userId:''},(e,d)=>{
+  res.json({username:req.body.username,userId:shortid.generate()},(e,d)=>{
     e?p(e):p(d);
   })
 });
@@ -86,7 +86,7 @@ app.get('/api/exercise/log',(req,res)=>{
   });
 });
 
-// 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
+// 4. GET /api/exercise/log?{userId}[&from][&to][&limit]
 app.get('/api/exercise/users',(req,res)=>{
   p('id: ');p(req.query);
   res.json({userId:req.query},(e,d)=>{
