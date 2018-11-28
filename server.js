@@ -119,7 +119,7 @@ app.post('/api/exercise/add',(req,res)=>{
     //user not found? 
     if(d.length==0){
       //return error report
-      return res.send('unknown ID',(e,d)=>{
+      return res.send('unknown user ID',(e,d)=>{
       e?p(e):p(d);
     });
     }
@@ -132,16 +132,16 @@ app.post('/api/exercise/add',(req,res)=>{
       if(req.body.date.length==0){
         
         
-        // return res.send("'Description' is required",(e,d)=>{
-        //   e?p(e):p(d);
-        // });
+        return res.send("Acknowledged",(e,d)=>{
+          e?p(e):p(d);
+        });
       }
     }
   });
   
-  res.json({userId:req.body},(e,d)=>{
-    e?p(e):p(d);
-  });
+  // res.json({userId:req.body},(e,d)=>{
+  //   e?p(e):p(d);
+  // });
 });
 
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
