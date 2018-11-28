@@ -42,9 +42,10 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   username:String,
   userId:String,
-  description:String,
-  duration:Number,
-  date:String  
+  data:[]
+  // description:String,
+  // duration:Number,
+  // date:String  
 });
 
 var User = mongoose.model('User',userSchema);
@@ -139,8 +140,8 @@ app.post('/api/exercise/add',(req,res)=>{
       //if date given and valid
       else if(req.body.date.match(/\d{4}-\d{1,2}-\d{1,2}/g)){
         p('it is a match');
-        var newUser = User({username:req.body.username,userId:shortid.generate()});
-      newUser.save((e,d)=>{
+        d[0];
+      d[0].save((e,d)=>{
         if(e)p(e);
         res.json({username:d.username,userId:d.userId},(e,d)=>{
           e?p(e):p(d);
