@@ -129,7 +129,7 @@ app.post('/api/exercise/add',(req,res)=>{
     else{
       //init date
       var date = new moment();
-      p(date);
+      p(date.match(/\d{4}-\d{1,2}-\d{1,2}/g));
       //if date not present  
       if(req.body.date.length==0){
         
@@ -144,7 +144,7 @@ app.post('/api/exercise/add',(req,res)=>{
         var oldUser = User(d[0]);
         oldUser.data.push({date:req.body.date,desc:req.body.description,dur:req.body.duration});
         oldUser.save((e,d)=>{  
-          if(e)p(e);
+          if(e)return p(e);
           res.send(oldUser,(e,d)=>{
             e?p(e):p(d);
           });
@@ -158,7 +158,10 @@ app.post('/api/exercise/add',(req,res)=>{
   // });
 });
 
+
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
+
+
 app.get('/api/exercise/log',(req,res)=>{
   //invalid userId? 
   //return error
@@ -169,7 +172,10 @@ app.get('/api/exercise/log',(req,res)=>{
   });
 });
 
+
 // 4. GET /api/exercise/log?{userId}[&from][&to][&limit]
+
+
 app.get('/api/exercise/users',(req,res)=>{
   p('id: ');p(req.query);
   res.json({userId:req.query},(e,d)=>{
