@@ -132,7 +132,7 @@ app.post('/api/exercise/add',(req,res)=>{
       //if date not present  
       if(req.body.date.length==0){
         //init date
-        var date = moment().year().toString()+'-'+moment().month()+'-'+moment().date().toString();
+        var date = moment().year().toString()+'-'+moment().add(1,'M').month().toString()+'-'+moment().date().toString();
         p(date);
         oldUser.data.push({date:date,desc:req.body.description,dur:req.body.duration});
       }
@@ -141,7 +141,7 @@ app.post('/api/exercise/add',(req,res)=>{
         p('it is a match');
         oldUser.data.push({date:req.body.date,desc:req.body.description,dur:req.body.duration});
       }
-      oldUser.save((e,d)=>{  
+      oldUser.save((e,d)=>{
         if(e)return p(e);
         return res.send(oldUser,(e,d)=>{
           e?p(e):p(d);
