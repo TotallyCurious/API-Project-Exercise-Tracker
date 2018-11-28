@@ -54,7 +54,9 @@ var User = mongoose.model('User',userSchema);
 var p = (val)=>{console.log(val)};
 
 
+//==================================
 // 1. POST /api/exercise/new-user
+//==================================
 
 
 app.post('/api/exercise/new-user',(req,res)=>{
@@ -89,7 +91,9 @@ app.post('/api/exercise/new-user',(req,res)=>{
 });
 
 
+//==================================
 // 2. POST /api/exercise/add
+//==================================
 
 
 app.post('/api/exercise/add',(req,res)=>{
@@ -134,13 +138,15 @@ app.post('/api/exercise/add',(req,res)=>{
         //init date
         var date = moment().year().toString()+'-'+moment().add(1,'M').month().toString()+'-'+moment().date().toString();
         p(date);
+        //push data to file with present date
         oldUser.data.push({date:date,description:req.body.description,duration:req.body.duration});
       }
       //if date given and valid
       else if(req.body.date.match(/\d{4}-\d{1,2}-\d{1,2}/g)){
-        p('it is a match');
-        oldUser.data.push({date:req.body.date,description:req.body.description,duration:req.body.duration});
+        //push all given data to file
+        oldUser.data.push({date:req.body.date, description:req.body.description, duration:req.body.duration});
       }
+      //save file and return details
       oldUser.save((e,d)=>{
         if(e)return p(e);
         return res.send({userId:oldUser.userId,data:{date:date,description:req.body.description,duration:req.body.duration}},(e,d)=>{
@@ -149,14 +155,12 @@ app.post('/api/exercise/add',(req,res)=>{
       });
     }
   });
-  
-  // res.json({userId:req.body},(e,d)=>{
-  //   e?p(e):p(d);
-  // });
 });
 
 
+//==================================
 // 3. GET /api/exercise/log?{userId}[&from][&to][&limit]
+//==================================
 
 
 app.get('/api/exercise/log',(req,res)=>{
@@ -170,7 +174,9 @@ app.get('/api/exercise/log',(req,res)=>{
 });
 
 
-// 4. GET /api/exercise/log?{userId}[&from][&to][&limit]
+//==================================
+// 4. GET /api/exercise/users
+//==================================
 
 
 app.get('/api/exercise/users',(req,res)=>{
