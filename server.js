@@ -141,13 +141,14 @@ app.post('/api/exercise/add',(req,res)=>{
       //if date given and valid
       else if(req.body.date.match(/\d{4}-\d{1,2}-\d{1,2}/g)){
         p('it is a match');
-        d[0].data.push({date:req.body.date,desc:req.body.description,dur:req.body.duration});
-      d[0].save((e,d)=>{
-        if(e)p(e);
-        res.json({username:d.username,userId:d.userId},(e,d)=>{
-          e?p(e):p(d);
+        var oldUser = User(d[0]);
+        oldUser.data.push({date:req.body.date,desc:req.body.description,dur:req.body.duration});
+        oldUser.save((e,d)=>{  
+          if(e)p(e);
+          res.send(oldUser,(e,d)=>{
+            e?p(e):p(d);
+          });
         });
-      });
       }
     }
   });
