@@ -128,28 +128,25 @@ app.post('/api/exercise/add',(req,res)=>{
     //user found:
     else{
       
+        var oldUser = User(d[0]);
       //if date not present  
       if(req.body.date.length==0){
         //init date
-        var date = moment().year().toString()+'-'+moment().month().toString()+'-'+moment().date().toString();
+        var date = moment().year().toString()+'-'+moment().month()+'-'+moment().date().toString();
         p(date);
-        
-        return res.send("Acknowledged",(e,d)=>{
-          e?p(e):p(d);
-        });
+        oldUser.data.push({date:date,desc:req.body.description,dur:req.body.duration});
       }
       //if date given and valid
       else if(req.body.date.match(/\d{4}-\d{1,2}-\d{1,2}/g)){
         p('it is a match');
-        var oldUser = User(d[0]);
         oldUser.data.push({date:req.body.date,desc:req.body.description,dur:req.body.duration});
-        oldUser.save((e,d)=>{  
-          if(e)return p(e);
-          return res.send(oldUser,(e,d)=>{
-            e?p(e):p(d);
-          });
-        });
       }
+      oldUser.save((e,d)=>{  
+        if(e)return p(e);
+        return res.send(oldUser,(e,d)=>{
+          e?p(e):p(d);
+        });
+      });
     }
   });
   
