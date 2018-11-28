@@ -44,8 +44,8 @@ var userSchema = new Schema({
   userId:String,
   data:[{
     date:String,
-    desc:String,
-    dur:Number
+    description:String,
+    duration:Number
   }]
 });
 
@@ -134,16 +134,16 @@ app.post('/api/exercise/add',(req,res)=>{
         //init date
         var date = moment().year().toString()+'-'+moment().add(1,'M').month().toString()+'-'+moment().date().toString();
         p(date);
-        oldUser.data.push({date:date,desc:req.body.description,dur:req.body.duration});
+        oldUser.data.push({date:date,description:req.body.description,duration:req.body.duration});
       }
       //if date given and valid
       else if(req.body.date.match(/\d{4}-\d{1,2}-\d{1,2}/g)){
         p('it is a match');
-        oldUser.data.push({date:req.body.date,desc:req.body.description,dur:req.body.duration});
+        oldUser.data.push({date:req.body.date,description:req.body.description,duration:req.body.duration});
       }
       oldUser.save((e,d)=>{
         if(e)return p(e);
-        return res.send(oldUser,(e,d)=>{
+        return res.send({userId:oldUser.userId,data:{date:date,description:req.body.description,duration:req.body.duration}},(e,d)=>{
           e?p(e):p(d);
         });
       });
