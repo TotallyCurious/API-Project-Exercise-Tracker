@@ -164,7 +164,7 @@ app.post('/api/exercise/add',(req,res)=>{
 
 
 app.get('/api/exercise/log',(req,res)=>{
-  //invalid userId? 
+  //invalid userId?
   //return error
   //
   p('id: ');p(req.query);
