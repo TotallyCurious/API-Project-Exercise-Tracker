@@ -83,7 +83,7 @@ app.post('/api/exercise/new-user',(req,res)=>{
     //If username exists
     else{
       //return existing username and userId from db
-      res.json({username:d[0].username,userId:d[0].userId},(e,d)=>{
+      res.send('Username already taken!',(e,d)=>{
         e?p(e):p(d);
       });
     }
