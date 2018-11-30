@@ -227,12 +227,14 @@ app.get('/api/exercise/log',(req,res)=>{
         }
       }
       
-      // return data based on parameters
+      // return data based on finalized parameters
       p(d[0].data.length);
+      p(d[0]);
       var details = [];
       d[0].data.forEach((x,i)=>{
         while(limit){
           details.push(x);
+          p(x);
           
           
           limit--;
@@ -245,9 +247,9 @@ app.get('/api/exercise/log',(req,res)=>{
   });
   
   
-  res.json({userId:req.query},(e,d)=>{
-    e?p(e):p(d);
-  });
+  // res.json({userId:req.query},(e,d)=>{
+  //   e?p(e):p(d);
+  // });
 });
 
 
