@@ -260,12 +260,12 @@ app.get('/api/exercise/log',(req,res)=>{
 app.get('/api/exercise/users',(req,res)=>{
   p('id: ');p(req.query);
   //get all users
-  User.find({userId:req.query.userId},(e,d)=>{
+  User.find({},(e,d)=>{
     if(e)p(e);
-    
-  
-  return res.json({userId:req.query},(e,d)=>{
-    e?p(e):p(d);
+    p(d);  
+    return res.json({userId:req.query},(e,d)=>{
+      e?p(e):p(d);
+    });
   });
 });
 
