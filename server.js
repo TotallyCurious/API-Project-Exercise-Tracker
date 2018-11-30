@@ -227,7 +227,7 @@ app.get('/api/exercise/log',(req,res)=>{
         }
       }
       else{
-      
+       limit = 50;
       }
       
       // return data based on finalized parameters
@@ -243,6 +243,7 @@ app.get('/api/exercise/log',(req,res)=>{
             break;
           }
       };
+      p('details: ');p(details);
       return res.json({username:d.username,userId:d.userId,details:details},(e,d)=>{
           e?p(e):p(d);
         });
