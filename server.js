@@ -192,7 +192,7 @@ app.get('/api/exercise/log',(req,res)=>{
           from = req.query.from;
         }
         else{
-          return res.send('from date cannot be ahead of today',(e,d)=>{
+          return res.send("'from' date cannot be ahead of today",(e,d)=>{
             e?p(e):p(d);
           });
         }
@@ -206,7 +206,7 @@ app.get('/api/exercise/log',(req,res)=>{
       //verify to date
       if(req.query.to){
         if(moment(req.query.to, 'YYYY-MM-DD').isBefore(moment(from, 'YYYY-MM-DD'))){
-          return res.send('to date cannot be behind from date',(e,d)=>{
+          return res.send("'to' date cannot be behind 'from' date",(e,d)=>{
             e?p(e):p(d);
           });
         }
@@ -229,6 +229,18 @@ app.get('/api/exercise/log',(req,res)=>{
       
       // return data based on parameters
       p(d[0].data.length);
+      var details = [];
+      d[0].data.forEach((x,i)=>{
+        while(limit){
+          details.push(x);
+          
+          
+          limit--;
+        }
+      });
+      return res.json({username:d.username,userId:d.userId,details:details},(e,d)=>{
+          e?p(e):p(d);
+        });
     }
   });
   
