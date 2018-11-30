@@ -232,13 +232,12 @@ app.get('/api/exercise/log',(req,res)=>{
       p(d[0]);
       var details = [];
       d[0].data.forEach((x,i)=>{
-        while(limit){
           details.push(x);
           p(x);
-          
-          
           limit--;
-        }
+          if(limit==0){
+            break;
+          }
       });
       return res.json({username:d.username,userId:d.userId,details:details},(e,d)=>{
           e?p(e):p(d);
