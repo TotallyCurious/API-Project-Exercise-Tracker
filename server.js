@@ -188,9 +188,32 @@ app.get('/api/exercise/log',(req,res)=>{
       var from,to,limit;
       //verify from date
       if(req.query.from){
-        if(req.query.from );
+        if(moment(req.query.from, 'YYYY-MM-DD').isBefore(moment())){
+          from = req.query.from;
+        }
+        else{
+          return res.send('from date cannot be ahead of today',(e,d)=>{
+            e?p(e):p(d);
+          });
+        }
       }
+      //if no from date given
+      else{
+        //set from date to the beginning
+        from = '2018-01-01';
+      }
+      
       //verify to date
+      if(req.query.to){
+        if(moment(req.query.to, 'YYYY-MM-DD').isBefore(moment(from, 'YYYY-MM-DD'))){
+          return res.send('to date cannot be ahead of today',(e,d)=>{
+            e?p(e):p(d);
+          });
+        }
+        else{
+          to = req.query.to;
+        }
+      }
       //verify limit
       //if limit value less than zero
       if(req.query.limit<=0){
