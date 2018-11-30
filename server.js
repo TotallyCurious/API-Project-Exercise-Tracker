@@ -226,19 +226,23 @@ app.get('/api/exercise/log',(req,res)=>{
           limit = req.query.limit;
         }
       }
+      else{
+      
+      }
       
       // return data based on finalized parameters
       p(d[0].data.length);
       p(d[0]);
       var details = [];
-      d[0].data.forEach((x,i)=>{
+      // d[0].data.forEach((x,i)=>{
+      for(const [x,i] of d[0].data){
           details.push(x);
           p(x);
           limit--;
           if(limit==0){
             break;
           }
-      });
+      };
       return res.json({username:d.username,userId:d.userId,details:details},(e,d)=>{
           e?p(e):p(d);
         });
