@@ -206,7 +206,7 @@ app.get('/api/exercise/log',(req,res)=>{
       //verify to date
       if(req.query.to){
         if(moment(req.query.to, 'YYYY-MM-DD').isBefore(moment(from, 'YYYY-MM-DD'))){
-          return res.send('to date cannot be ahead of today',(e,d)=>{
+          return res.send('to date cannot be behind from date',(e,d)=>{
             e?p(e):p(d);
           });
         }
@@ -215,13 +215,20 @@ app.get('/api/exercise/log',(req,res)=>{
         }
       }
       //verify limit
-      //if limit value less than zero
-      if(req.query.limit<=0){
-        return res.send('Nothing to display',(e,d)=>{
-          e?p(e):p(d);
-        });
+      if(req.query.limit){
+        //if limit value less than zero
+        if(req.query.limit<=0){
+          return res.send('Nothing to display',(e,d)=>{
+            e?p(e):p(d);
+          });
+        }
+        else{
+          limit = req.query.limit;
+        }
       }
+      
       // return data based on parameters
+      p(d[0].data.length);
     }
   });
   
