@@ -176,6 +176,7 @@ app.get('/api/exercise/log',(req,res)=>{
   }
   //valid userId? find user
   User.find({userId:req.query.userId},(e,d)=>{
+    if(e)p(e);
     //user not found? 
     if(d.length==0){
       //return error report
@@ -235,25 +236,19 @@ app.get('/api/exercise/log',(req,res)=>{
       p(d[0]);
       var details = [];
       // d[0].data.forEach((x,i)=>{
-      for(const [x,i] of d[0].data){
-          details.push(x);
-          p(x);
-          limit--;
-          if(limit==0){
-            break;
-          }
-      };
-      p('details: ');p(details);
-      return res.json({username:d.username,userId:d.userId,details:details},(e,d)=>{
-          e?p(e):p(d);
-        });
+      for(const [i,x] of d[0].data.entries()){
+        details.push({date:x.date,description:x.description,duration:x.duration});
+        limit--;
+        if(limit==0){
+          break;
+        }
+      }
+      //Display user details
+      return res.json({username:d[0].username,userId:d[0].userId,details:details},(e,d)=>{
+        e?p(e):p(d);
+      });
     }
   });
-  
-  
-  // res.json({userId:req.query},(e,d)=>{
-  //   e?p(e):p(d);
-  // });
 });
 
 
@@ -264,7 +259,12 @@ app.get('/api/exercise/log',(req,res)=>{
 
 app.get('/api/exercise/users',(req,res)=>{
   p('id: ');p(req.query);
-  res.json({userId:req.query},(e,d)=>{
+  //get all users
+  User.find({userId:req.query.userId},(e,d)=>{
+    if(e)p(e);
+    
+  
+  return res.json({userId:req.query},(e,d)=>{
     e?p(e):p(d);
   });
 });
