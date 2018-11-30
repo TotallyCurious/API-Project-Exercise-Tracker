@@ -167,15 +167,15 @@ app.get('/api/exercise/log',(req,res)=>{
   //invalid userId?
   //return error
   //
-  console.log(moment('1-1-2019', 'MM-DD-YYYY').isBefore(moment()));
+  console.log(moment(req.query.from, 'YYYY-MM-DD').isBefore(moment()));
   p('id: ');p(req.query);
-  if(!req.body.userId){
+  if(!req.query.userId){
     return res.send('please submit valid userId',(e,d)=>{
       e?p(e):p(d);
     });
   }
   //valid userId? find user
-  User.find({userId:req.body.userId},(e,d)=>{
+  User.find({userId:req.query.userId},(e,d)=>{
     //user not found? 
     if(d.length==0){
       //return error report
@@ -185,11 +185,15 @@ app.get('/api/exercise/log',(req,res)=>{
     }
     //user found
     else{
+      var from,to,limit;
       //verify from date
+      if(req.query.from){
+        if(req.query.from );
+      }
       //verify to date
       //verify limit
       //if limit value less than zero
-      if(req.body.limit<=0){
+      if(req.query.limit<=0){
         return res.send('Nothing to display',(e,d)=>{
           e?p(e):p(d);
         });
