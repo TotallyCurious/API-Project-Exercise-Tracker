@@ -168,6 +168,30 @@ app.get('/api/exercise/log',(req,res)=>{
   //return error
   //
   p('id: ');p(req.query);
+  if(!req.body.userId){
+    return res.send('please submit valid userId',(e,d)=>{
+      e?p(e):p(d);
+    });
+  }
+  //valid userId? find user
+  User.find({userId:req.body.userId},(e,d)=>{
+    //user not found? 
+    if(d.length==0){
+      //return error report
+      return res.send('unknown userId',(e,d)=>{
+        e?p(e):p(d);
+      });
+    }
+    //user found
+    else{
+      //verify from date
+      //verify to date
+      //verify limit
+      // return data based on parameters
+    }
+  });
+  
+  
   res.json({userId:req.query},(e,d)=>{
     e?p(e):p(d);
   });
