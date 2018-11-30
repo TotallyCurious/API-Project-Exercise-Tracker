@@ -166,9 +166,6 @@ app.post('/api/exercise/add',(req,res)=>{
 app.get('/api/exercise/log',(req,res)=>{
   //invalid userId?
   //return error
-  //
-  console.log(moment(req.query.from, 'YYYY-MM-DD').isBefore(moment()));
-  p('id: ');p(req.query);
   if(!req.query.userId){
     return res.send('please submit valid userId',(e,d)=>{
       e?p(e):p(d);
@@ -232,8 +229,6 @@ app.get('/api/exercise/log',(req,res)=>{
       }
       
       // return data based on finalized parameters
-      p(d[0].data.length);
-      p(d[0]);
       var details = [];
       // d[0].data.forEach((x,i)=>{
       for(const [i,x] of d[0].data.entries()){
@@ -258,12 +253,14 @@ app.get('/api/exercise/log',(req,res)=>{
 
 
 app.get('/api/exercise/users',(req,res)=>{
-  p('id: ');p(req.query);
   //get all users
   User.find({},(e,d)=>{
     if(e)p(e);
-    p(d);  
-    return res.json({userId:req.query},(e,d)=>{
+    var users=[];
+    for(const [i,x] of d.entries()){
+      users.push({No:i+1,username:x.username});
+    }
+    return res.json(users,(e,d)=>{
       e?p(e):p(d);
     });
   });
