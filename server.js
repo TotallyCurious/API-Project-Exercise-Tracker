@@ -167,6 +167,7 @@ app.get('/api/exercise/log',(req,res)=>{
   //invalid userId?
   //return error
   //
+  console.log(moment('1-1-2019', 'MM-DD-YYYY').isBefore(moment()));
   p('id: ');p(req.query);
   if(!req.body.userId){
     return res.send('please submit valid userId',(e,d)=>{
@@ -187,6 +188,12 @@ app.get('/api/exercise/log',(req,res)=>{
       //verify from date
       //verify to date
       //verify limit
+      //if limit value less than zero
+      if(req.body.limit<=0){
+        return res.send('Nothing to display',(e,d)=>{
+          e?p(e):p(d);
+        });
+      }
       // return data based on parameters
     }
   });
